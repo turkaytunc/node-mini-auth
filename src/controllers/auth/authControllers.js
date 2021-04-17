@@ -34,7 +34,8 @@ export const loginController = async (req, res, next) => {
     const compareResult = await bcrypt.compare(password, foundUser.password);
     if (compareResult) {
       const token = await jwt.sign({ user: { email } }, secret, { expiresIn: `${TEN_MIN}ms` });
-      return res.setHeader('Set-Cookie', `auth=${token}`).status(200).json(token);
+      res.cookie('auth', token, { maxAge: TEN_MIN, httpOnly: true });
+      return res.status(200).json(token);
     }
 
     const err = new ErrorWithStatusCode('Wrong email or password', 401);
@@ -51,8 +52,8 @@ export const registerController = async (req, res, next) => {
     const newUser = await createUser(password, username, email);
     if (newUser) {
       const token = await jwt.sign({ user: { email } }, secret);
-
-      return res.setHeader('Set-Cookie', `auth=${token}`).json({
+      res.cookie('auth', token, { maxAge: TEN_MIN, httpOnly: true });
+      return res.json({
         username: newUser.username,
         email: newUser.email,
         token,

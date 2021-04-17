@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { authRoutes } from './routes/index.js';
+import { authRoutes, dashboardRoutes } from './routes/index.js';
 import ErrorWithStatusCode from './utils/ErrorWithStatusCode.js';
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'hello from express' });

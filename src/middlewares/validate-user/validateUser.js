@@ -1,18 +1,20 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import User from '../../db/User.js';
 
 dotenv.config();
 
 const secret = process.env.JWT_SECRET;
 
 export const validateUser = async (req, res, next) => {
-  const { auth } = req.cookie;
+  try {
+    const { auth } = req.cookies;
 
-  const token = await jwt.verify(auth, secret);
+    const token = await jwt.verify(auth, secret);
 
-  console.log(token);
-  await User.findOne({});
+    req.user = token.user;
 
-  return next();
+    return next();
+  } catch (error) {
+    return next(error);
+  }
 };

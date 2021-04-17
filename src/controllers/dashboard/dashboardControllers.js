@@ -7,13 +7,12 @@ export const dashboardController = async (req, res, next) => {
       console.log(req.user);
 
       const user = await User.findOne({ email: req.user.email });
-      return res.json(user);
+      return res.json({ username: user.username, email: user.email });
     }
 
-    const err = new ErrorWithStatusCode('Cannot create user', 500);
+    const err = new ErrorWithStatusCode('User not found', 404);
     return next(err);
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ error });
   }
 };

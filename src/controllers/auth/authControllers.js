@@ -63,7 +63,6 @@ export const registerController = async (req, res, next) => {
     const err = new ErrorWithStatusCode('Cannot create user', 500);
     return next(err);
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ error });
   }
 };

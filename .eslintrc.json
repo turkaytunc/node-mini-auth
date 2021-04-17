@@ -13,6 +13,7 @@
     "linebreak-style": "off",
     "arrow-body-style": "off",
     "import/extensions": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/named": "off"
   }
 }

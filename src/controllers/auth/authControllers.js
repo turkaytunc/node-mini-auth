@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../../db/User.js';
 
@@ -8,6 +8,24 @@ dotenv.config();
 const secret = process.env.JWT_SECRET;
 
 export const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const newUser = await User.findOne({ email });
+    const compareResult = await bcrypt.compare(password, newUser.password);
+
+    console.log(newUser);
+    console.log(compareResult);
+
+    const token = await jwt.sign({ user: { email } }, secret);
+
+    res.status(200).json(token);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const registerController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -23,14 +41,11 @@ export const loginController = async (req, res) => {
 
     console.log(newUser);
 
-    const token = await sign({ user: { email } }, secret);
+    const token = await jwt.sign({ user: { email } }, secret);
 
-    res.status(200).json(token);
+    return res.status(200).json(token);
   } catch (error) {
     console.log(error);
+    return res.status(400).json({ error });
   }
-};
-
-export const registerController = (req, res) => {
-  return res.json({ message: 'auth/register' });
 };

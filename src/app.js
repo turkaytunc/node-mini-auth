@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { authRoutes } from './routes/index.js';
 import ErrorWithStatusCode from './utils/ErrorWithStatusCode.js';
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 app.use('/auth', authRoutes);
 

@@ -5,7 +5,7 @@ import User from '../../db/User.js';
 import ErrorWithStatusCode from '../../utils/ErrorWithStatusCode.js';
 
 dotenv.config();
-
+const TEN_MIN = 1000 * 60 * 10;
 const secret = process.env.JWT_SECRET;
 
 async function createUser(password, username, email) {
@@ -33,8 +33,8 @@ export const loginController = async (req, res, next) => {
 
     const compareResult = await bcrypt.compare(password, foundUser.password);
     if (compareResult) {
-      const token = await jwt.sign({ user: { email } }, secret);
-      return res.status(200).json(token);
+      const token = await jwt.sign({ user: { email } }, secret, { expiresIn: `${TEN_MIN}ms` });
+      return res.setHeader('Set-Cookie', `auth=${token}`).status(200).json(token);
     }
 
     const err = new ErrorWithStatusCode('Wrong email or password', 401);
@@ -52,7 +52,7 @@ export const registerController = async (req, res, next) => {
     if (newUser) {
       const token = await jwt.sign({ user: { email } }, secret);
 
-      return res.json({
+      return res.setHeader('Set-Cookie', `auth=${token}`).json({
         username: newUser.username,
         email: newUser.email,
         token,

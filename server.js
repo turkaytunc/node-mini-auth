@@ -1,10 +1,15 @@
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import app from './src/app.js';
 
 dotenv.config();
 
-const { PORT = 4000 } = process.env;
+const { PORT = 4000, DB_URL } = process.env;
 
-app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`);
+mongoose.connect(DB_URL, () => {
+  console.log('DB connected');
+
+  app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`);
+  });
 });

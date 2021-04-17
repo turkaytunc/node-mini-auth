@@ -7,7 +7,7 @@ dotenv.config();
 
 const secret = process.env.JWT_SECRET;
 
-export const loginController = async (req, res) => {
+export const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -25,6 +25,8 @@ export const loginController = async (req, res) => {
     return res.status(401).json({ message: 'Wrong email or password' });
   } catch (error) {
     console.log(error);
+
+    return next(error);
   }
 };
 

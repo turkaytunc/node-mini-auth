@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-app.use(morgan());
+app.use(morgan('dev'));
 
 app.use('/auth', authRoutes);
 

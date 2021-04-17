@@ -11,15 +11,18 @@ export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const newUser = await User.findOne({ email });
-    const compareResult = await bcrypt.compare(password, newUser.password);
+    const foundUser = await User.findOne({ email });
+    if (foundUser === null) {
+      return res.status(404).json({ message: 'User not exist' });
+    }
 
-    console.log(newUser);
-    console.log(compareResult);
+    const compareResult = await bcrypt.compare(password, foundUser.password);
+    if (compareResult) {
+      const token = await jwt.sign({ user: { email } }, secret);
+      return res.status(200).json(token);
+    }
 
-    const token = await jwt.sign({ user: { email } }, secret);
-
-    res.status(200).json(token);
+    return res.status(401).json({ message: 'Wrong email or password' });
   } catch (error) {
     console.log(error);
   }
@@ -27,19 +30,17 @@ export const loginController = async (req, res) => {
 
 export const registerController = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const userSchema = new User({
-      userName: Math.random().toString(),
+      username,
       password: hashedPassword,
       email,
     });
 
-    const newUser = await userSchema.save();
-
-    console.log(newUser);
+    await userSchema.save();
 
     const token = await jwt.sign({ user: { email } }, secret);
 

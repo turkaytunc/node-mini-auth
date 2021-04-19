@@ -15,3 +15,13 @@ services:
       - /usr/app/api/node_modules
     env_file:
       - ./.env
+
+  mongodb:
+    image: mongo:3.6
+    env_file:
+      - ./.env
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:

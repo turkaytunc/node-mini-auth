@@ -1,0 +1,10 @@
+FROM mhart/alpine-node:15.12.0
+WORKDIR /usr/app/api
+COPY ["package.json", "./"]
+RUN apk add --no-cache make gcc g++ python3 && \
+  npm install && \
+  npm rebuild bcrypt --build-from-source && \
+  apk del make gcc g++ python3
+COPY . .
+EXPOSE 5000
+CMD [ "npm", "run", "dev"]

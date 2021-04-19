@@ -1,0 +1,15 @@
+version: '3'
+services:
+  node-api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8080:8080
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      - PORT=8080
+      - NODE_ENV=production

@@ -5,10 +5,16 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "jest --watchAll --coverage",
-    "dev": "nodemon server.js",
+    "test": "jest",
+    "test:dev": "jest --coverage --watchAll",
+    "lint": "eslint . --ext .js",
+    "prettier": "prettier --write .",
     "start": "node server.js",
-    "lint": "eslint . --ext .js"
+    "dev": "nodemon -L server.js",
+    "compose:dev:up": "docker-compose -f docker-compose.dev.yml up",
+    "compose:dev:down": "docker-compose -f docker-compose.dev.yml down -v",
+    "compose:prod:up": "docker-compose -f docker-compose.prod.yml up -d --build",
+    "compose:prod:down": "docker-compose -f docker-compose.prod.yml down"
   },
   "repository": {
     "type": "git",

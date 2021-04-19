@@ -1,0 +1,27 @@
+version: '3'
+services:
+  node-api:
+    container_name: api
+    read_only: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: api:1.0
+    ports:
+      - 4000:4000
+    restart: always
+    volumes:
+      - .:/usr/app/api
+      - /usr/app/api/node_modules
+    env_file:
+      - ./.env
+
+  mongodb:
+    image: mongo:3.6
+    env_file:
+      - ./.env
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:

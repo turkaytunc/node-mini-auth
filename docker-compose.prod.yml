@@ -13,3 +13,13 @@ services:
     environment:
       - PORT=8080
       - NODE_ENV=production
+
+  mongodb:
+    image: mongo:3.6
+    env_file:
+      - ./.env
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:

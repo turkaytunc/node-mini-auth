@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "bierner.emojisense",
+    "formulahendry.auto-rename-tag",
+    "dsznajder.es7-react-js-snippets",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "stylelint.vscode-stylelint",
+    "oderwat.indent-rainbow",
+    "davidanson.vscode-markdownlint",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "redhat.vscode-yaml",
+    "coenraads.bracket-pair-colorizer-2",
+    "xabikos.javascriptsnippets",
+    "vscode-icons-team.vscode-icons"
+  ]
+}

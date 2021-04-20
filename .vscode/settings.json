@@ -23,7 +23,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
-  "prettier.printWidth": 100,
+  "prettier.printWidth": 80,
   "prettier.singleQuote": true,
   "explorer.compactFolders": false,
   "vim.vimrc.enable": true,

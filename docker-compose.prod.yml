@@ -13,6 +13,8 @@ services:
     environment:
       - PORT=8080
       - NODE_ENV=production
+    depends_on:
+      - mongodb
 
   mongodb:
     image: mongo:3.6

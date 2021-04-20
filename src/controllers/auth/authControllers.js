@@ -11,6 +11,11 @@ const secret = process.env.JWT_SECRET;
 async function createUser(password, username, email) {
   const hashedPassword = await bcrypt.hash(password, 12);
 
+  const userExist = await User.findOne({ email });
+  if (userExist) {
+    throw new ErrorWithStatusCode('Email is already in use!!', 400);
+  }
+
   const userSchema = new User({
     username,
     password: hashedPassword,
@@ -33,9 +38,16 @@ export const loginController = async (req, res, next) => {
 
     const compareResult = await bcrypt.compare(password, foundUser.password);
     if (compareResult) {
-      const token = await jwt.sign({ user: { email } }, secret, { expiresIn: `${TEN_MIN}ms` });
-      res.cookie('auth', token, { maxAge: TEN_MIN, httpOnly: true });
-      return res.status(200).json(token);
+      const token = await jwt.sign({ user: { email } }, secret, {
+        expiresIn: `${TEN_MIN}ms`,
+      });
+      res.cookie('auth', token, {
+        maxAge: TEN_MIN,
+        httpOnly: true,
+        secure: true,
+        samesite: 'lax',
+      });
+      return res.status(200).json({ message: 'login successful' });
     }
 
     const err = new ErrorWithStatusCode('Wrong email or password', 401);
@@ -52,11 +64,15 @@ export const registerController = async (req, res, next) => {
     const newUser = await createUser(password, username, email);
     if (newUser) {
       const token = await jwt.sign({ user: { email } }, secret);
-      res.cookie('auth', token, { maxAge: TEN_MIN, httpOnly: true });
+      res.cookie('auth', token, {
+        maxAge: TEN_MIN,
+        httpOnly: true,
+        secure: true,
+        samesite: 'Lax',
+      });
       return res.json({
         username: newUser.username,
         email: newUser.email,
-        token,
       });
     }
 

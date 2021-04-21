@@ -32,8 +32,7 @@ export const loginController = async (req, res, next) => {
 
     const foundUser = await User.findOne({ email });
     if (foundUser === null) {
-      const err = new ErrorWithStatusCode('User not exist', 404);
-      return next(err);
+      throw new ErrorWithStatusCode('User not exist', 404);
     }
 
     const compareResult = await bcrypt.compare(password, foundUser.password);
@@ -79,6 +78,6 @@ export const registerController = async (req, res, next) => {
     const err = new ErrorWithStatusCode('Cannot create user', 500);
     return next(err);
   } catch (error) {
-    return res.status(400).json({ error });
+    return next(error);
   }
 };

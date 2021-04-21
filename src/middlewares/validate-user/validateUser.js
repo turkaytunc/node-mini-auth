@@ -12,10 +12,8 @@ export const validateUser = async (req, res, next) => {
 
     const token = jwt.verify(auth, secret);
 
-    if (token) {
-      req.user = token.user;
-      return next(req.user);
-    }
+    req.user = token.user;
+    return next(req.user);
   } catch (error) {
     const err = new ErrorWithStatusCode(
       'You must provide valid auth token',

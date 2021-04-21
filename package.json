@@ -12,6 +12,7 @@
     "start": "node server.js",
     "dev": "nodemon -L server.js",
     "compose:dev:up": "docker-compose -f docker-compose.dev.yml up",
+    "compose:dev:test": "docker-compose -f docker-compose.dev.yml up mongodb",
     "compose:dev:down": "docker-compose -f docker-compose.dev.yml down -v",
     "compose:prod:up": "docker-compose -f docker-compose.prod.yml up -d --build",
     "compose:prod:down": "docker-compose -f docker-compose.prod.yml down"

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import ErrorWithStatusCode from '../../utils/ErrorWithStatusCode.js';
 
 dotenv.config();
 
@@ -9,12 +10,17 @@ export const validateUser = async (req, res, next) => {
   try {
     const { auth } = req.cookies;
 
-    const token = await jwt.verify(auth, secret);
+    const token = jwt.verify(auth, secret);
 
-    req.user = token.user;
-
-    return next();
+    if (token) {
+      req.user = token.user;
+      return next(req.user);
+    }
   } catch (error) {
-    return next(error);
+    const err = new ErrorWithStatusCode(
+      'You must provide valid auth token',
+      403,
+    );
+    return next(err);
   }
 };

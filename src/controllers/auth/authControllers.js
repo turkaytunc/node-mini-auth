@@ -49,8 +49,7 @@ export const loginController = async (req, res, next) => {
       return res.status(200).json({ message: 'login successful' });
     }
 
-    const err = new ErrorWithStatusCode('Wrong email or password', 401);
-    return next(err);
+    throw new ErrorWithStatusCode('Wrong email or password', 401);
   } catch (error) {
     return next(error);
   }
@@ -62,7 +61,7 @@ export const registerController = async (req, res, next) => {
 
     const newUser = await createUser(password, username, email);
     if (newUser) {
-      const token = await jwt.sign({ user: { email } }, secret);
+      const token = jwt.sign({ user: { email } }, secret);
       res.cookie('auth', token, {
         maxAge: TEN_MIN,
         httpOnly: true,
@@ -75,8 +74,7 @@ export const registerController = async (req, res, next) => {
       });
     }
 
-    const err = new ErrorWithStatusCode('Cannot create user', 500);
-    return next(err);
+    throw new ErrorWithStatusCode('Cannot create user', 500);
   } catch (error) {
     return next(error);
   }

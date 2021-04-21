@@ -7,8 +7,7 @@ export const dashboardController = async (req, res, next) => {
     if (user) {
       return res.json({ username: user.username, email: user.email });
     }
-    const err = new ErrorWithStatusCode('User not found', 404);
-    return next(err);
+    throw new ErrorWithStatusCode('User not found', 404);
   } catch (error) {
     return next(error);
   }

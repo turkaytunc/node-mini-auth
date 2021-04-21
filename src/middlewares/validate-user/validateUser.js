@@ -13,7 +13,7 @@ export const validateUser = async (req, res, next) => {
     const token = jwt.verify(auth, secret);
 
     req.user = token.user;
-    return next(req.user);
+    return next();
   } catch (error) {
     const err = new ErrorWithStatusCode(
       'You must provide valid auth token',

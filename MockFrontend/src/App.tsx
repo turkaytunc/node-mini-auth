@@ -72,24 +72,77 @@ function App() {
     }
   };
 
+  const logout = async (e: any) => {
+    try {
+      const res = await window.fetch('http://localhost:4000/auth/logout', {
+        method: 'GET',
+
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        credentials: 'include',
+      });
+
+      const data = await res.json();
+      setResponse(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <form onSubmit={(e) => handleRegister(e)} style={{ display: 'flex', flexDirection: 'column' }}>
+        <form
+          onSubmit={(e) => handleRegister(e)}
+          style={{ display: 'flex', flexDirection: 'column' }}
+        >
           Register Form
-          <input onChange={(e) => setName(e.target.value as any)} value={name} type="text" placeholder="name" />
-          <input onChange={(e) => setEmail(e.target.value as any)} value={email} type="text" placeholder="email" />
-          <input onChange={(e) => setPass(e.target.value as any)} value={pass} type="text" placeholder="password" />
+          <input
+            onChange={(e) => setName(e.target.value as any)}
+            value={name}
+            type="text"
+            placeholder="name"
+          />
+          <input
+            onChange={(e) => setEmail(e.target.value as any)}
+            value={email}
+            type="text"
+            placeholder="email"
+          />
+          <input
+            onChange={(e) => setPass(e.target.value as any)}
+            value={pass}
+            type="text"
+            placeholder="password"
+          />
           <button type="submit">Register</button>
         </form>
-        <form onSubmit={(e) => handleLogin(e)} style={{ display: 'flex', flexDirection: 'column' }}>
+        <form
+          onSubmit={(e) => handleLogin(e)}
+          style={{ display: 'flex', flexDirection: 'column' }}
+        >
           Login Form
-          <input onChange={(e) => setEmail(e.target.value as any)} value={email} type="text" placeholder="email" />
-          <input onChange={(e) => setPass(e.target.value as any)} value={pass} type="text" placeholder="password" />
+          <input
+            onChange={(e) => setEmail(e.target.value as any)}
+            value={email}
+            type="text"
+            placeholder="email"
+          />
+          <input
+            onChange={(e) => setPass(e.target.value as any)}
+            value={pass}
+            type="text"
+            placeholder="password"
+          />
           <button type="submit">Login</button>
         </form>
         <button style={{ marginTop: '1rem' }} onClick={(e) => getUser(e)}>
           Get User
+        </button>
+        <button style={{ marginTop: '1rem' }} onClick={(e) => logout(e)}>
+          Logout
         </button>
         <div>{response && JSON.stringify(response, null, 2)}</div>
       </header>

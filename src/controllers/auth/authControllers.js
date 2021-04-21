@@ -84,16 +84,15 @@ export const logoutController = async (req, res, next) => {
     const { auth } = req.cookies;
 
     if (auth) {
-      const token = jwt.sign({ user: '' }, secret);
-      res.cookie('auth', token, {
-        maxAge: 100,
+      res.cookie('auth', ' ', {
+        maxAge: 1,
         httpOnly: true,
         secure: true,
         samesite: 'Lax',
       });
       return res.json({ message: 'logout successful' });
     }
-    throw new ErrorWithStatusCode('Cannot create user', 500);
+    throw new ErrorWithStatusCode('Oops something went wrong', 500);
   } catch (error) {
     return next(error);
   }

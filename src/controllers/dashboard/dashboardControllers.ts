@@ -1,7 +1,7 @@
-import ErrorWithStatusCode from '../../utils/ErrorWithStatusCode.js';
-import User from '../../db/User.js';
+import ErrorWithStatusCode from '../../utils/ErrorWithStatusCode';
+import User from '../../db/User';
 
-export const dashboardController = async (req, res, next) => {
+export const dashboardController = async (req: any, res: any, next: any) => {
   try {
     const user = await User.findOne({ email: req?.user?.email });
     if (user) {

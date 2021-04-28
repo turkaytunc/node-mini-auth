@@ -1,6 +1,6 @@
 import express from 'express';
-import { dashboardControllers } from '../../controllers/index.js';
-import { validateUser } from '../../middlewares/index.js';
+import { dashboardControllers } from '../../controllers';
+import { validateUser } from '../../middlewares';
 
 const router = express.Router();
 

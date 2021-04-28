@@ -11,7 +11,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const res = await window.fetch('http://localhost:4000/auth/register', {
+      const res = await window.fetch('http://localhost:4005/auth/register', {
         method: 'POST',
 
         headers: {
@@ -34,7 +34,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const res = await window.fetch('http://localhost:4000/auth/login', {
+      const res = await window.fetch('http://localhost:4005/auth/login', {
         method: 'POST',
 
         headers: {
@@ -55,7 +55,7 @@ function App() {
 
   const getUser = async (e: any) => {
     try {
-      const res = await window.fetch('http://localhost:4000/dashboard', {
+      const res = await window.fetch('http://localhost:4005/dashboard', {
         method: 'GET',
 
         headers: {
@@ -74,7 +74,7 @@ function App() {
 
   const logout = async (e: any) => {
     try {
-      const res = await window.fetch('http://localhost:4000/auth/logout', {
+      const res = await window.fetch('http://localhost:4005/auth/logout', {
         method: 'GET',
 
         headers: {

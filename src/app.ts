@@ -3,8 +3,8 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { authRoutes, dashboardRoutes } from './routes/index.js';
-import ErrorWithStatusCode from './utils/ErrorWithStatusCode.js';
+import { authRoutes, dashboardRoutes } from './routes';
+import ErrorWithStatusCode from './utils/ErrorWithStatusCode';
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use(helmet());
 app.use(morgan('dev'));
 
@@ -23,7 +24,7 @@ app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ message: 'hello from express' });
+  res.json({ message: 'hello from express!!' });
 });
 
 // Unhandled Endpoint Error
@@ -33,7 +34,7 @@ app.get('/*', (req, res, next) => {
 });
 
 // Global Error Handler
-app.use((error, req, res, next) => {
+app.use((error: any, req: any, res: any, next: any) => {
   if (res.headerSent) {
     return next(error);
   }

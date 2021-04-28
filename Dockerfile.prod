@@ -7,5 +7,6 @@ RUN if [ "$NODE_ENV" = "development" ]; \
         else npm install --only=production; \
         fi
 RUN npm install
-COPY . .
+RUN npm build
+COPY ./build ./
 CMD [ "npm", "start"]

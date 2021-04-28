@@ -1,5 +1,5 @@
 import express from 'express';
-import { authControllers } from '../../controllers/index.js';
+import { authControllers } from '../../controllers';
 
 const {
   registerController,

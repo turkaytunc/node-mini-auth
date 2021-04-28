@@ -1,14 +1,14 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import User from '../../db/User.js';
-import ErrorWithStatusCode from '../../utils/ErrorWithStatusCode.js';
+import User from '../../db/User';
+import ErrorWithStatusCode from '../../utils/ErrorWithStatusCode';
 
 dotenv.config();
 const TEN_MIN = 1000 * 60 * 10;
-const secret = process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET!;
 
-async function createUser(password, username, email) {
+async function createUser(password: string, username: string, email: string) {
   const hashedPassword = await bcrypt.hash(password, 12);
 
   const userExist = await User.findOne({ email });
@@ -26,7 +26,11 @@ async function createUser(password, username, email) {
   return newUser;
 }
 
-export const loginController = async (req, res, next) => {
+export const loginController = async (
+  req: { body: { email: any; password: any } },
+  res: any,
+  next: (arg0: any) => any,
+) => {
   try {
     const { email, password } = req.body;
 
@@ -55,7 +59,7 @@ export const loginController = async (req, res, next) => {
   }
 };
 
-export const registerController = async (req, res, next) => {
+export const registerController = async (req: any, res: any, next: any) => {
   try {
     const { email, password, username } = req.body;
 
@@ -79,7 +83,7 @@ export const registerController = async (req, res, next) => {
     return next(error);
   }
 };
-export const logoutController = async (req, res, next) => {
+export const logoutController = async (req: any, res: any, next: any) => {
   try {
     const { auth } = req.cookies;
 

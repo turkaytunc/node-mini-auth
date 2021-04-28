@@ -8,10 +8,8 @@ CMD [ "npm", "run", "build"]
 
 FROM mhart/alpine-node:15.12.0
 WORKDIR /api
-COPY --from=builder /app /api
-ARG NODE_ENV
-RUN if [ "$NODE_ENV" = "development" ]; \
-        then npm install; \
-        else npm install --only=production; \
-        fi
+COPY --from=builder /app/dist /api/dist
+COPY --from=builder /app/prod-package/package.json /api/
+RUN npm install --only=production
+RUN npm uninstall typescript
 CMD [ "node", "./dist/server.js" ]

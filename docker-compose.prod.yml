@@ -12,7 +12,6 @@ services:
       - ./.env
     environment:
       - PORT=4005
-      - NODE_ENV=production
     depends_on:
       - mongodb
 

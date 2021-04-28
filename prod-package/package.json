@@ -1,0 +1,40 @@
+{
+  "name": "mini-auth",
+  "version": "0.1.0",
+  "description": "auth with jwt using cookies",
+  "main": "./dist/server.js",
+  "scripts": {
+    "start": "node dist/server.js",
+    "build": "tsc -p .",
+    "compose:prod:up": "docker-compose -f docker-compose.prod.yml up -d --build",
+    "compose:prod:down": "docker-compose -f docker-compose.prod.yml down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/turkaytunc/node-mini-auth.git"
+  },
+  "keywords": [
+    "auth",
+    "jwt",
+    "cookie",
+    "nodejs"
+  ],
+  "author": "Türkay Tunç",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/turkaytunc/node-mini-auth/issues"
+  },
+  "homepage": "https://github.com/turkaytunc/node-mini-auth#readme",
+  "dependencies": {
+    "typescript": "^4.2.4",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.4",
+    "morgan": "^1.10.0"
+  }
+}

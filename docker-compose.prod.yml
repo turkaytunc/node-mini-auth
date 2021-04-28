@@ -6,12 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     ports:
-      - 8080:8080
+      - 4005:4005
     restart: always
     env_file:
       - ./.env
     environment:
-      - PORT=8080
+      - PORT=4005
       - NODE_ENV=production
     depends_on:
       - mongodb

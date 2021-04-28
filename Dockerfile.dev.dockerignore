@@ -22,5 +22,4 @@
 **/.env
 **/MockFrontend
 **/coverage
-**/__tests__
 README.md

@@ -2,12 +2,12 @@ import supertest from 'supertest';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { afterEach, beforeEach } from '@jest/globals';
-import app from '../src/app.js';
-import User from '../src/db/User.js';
+import app from '../src/app';
+import User from '../src/db/User';
 
 dotenv.config();
 
-const { DB_TEST_URL } = process.env;
+const { DB_TEST_URL = ' ' } = process.env;
 
 beforeEach(async () => {
   await mongoose.connect(DB_TEST_URL, {

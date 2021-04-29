@@ -1,6 +1,6 @@
 # node-mini-auth
 
-## JWT auth example using cookies with express, mongo
+## JWT auth example using cookies with express, mongo, typescript.
 
 ## 🚧 How to start-stop dev environment
 

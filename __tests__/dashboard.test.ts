@@ -13,6 +13,7 @@ beforeEach(async () => {
   await mongoose.connect(DB_TEST_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    connectTimeoutMS: 1000,
   });
 });
 

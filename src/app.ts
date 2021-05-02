@@ -24,7 +24,7 @@ app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 
 app.get('/', (req, res) => {
-  res.json({ message: 'hello from express!!' });
+  res.json({ message: 'hello from express' });
 });
 
 // Unhandled Endpoint Error
